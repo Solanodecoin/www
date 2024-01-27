@@ -41,13 +41,13 @@ return $valor;
 };
 function minArray($array = []){
 
-    echo "El numero minimo del array es: " . min($array) . "\n";
+    echo "El numero Minimo del array es: " . min($array) . "\n";
 
 };
 
 function maxArray($array = []){
 
-    echo "El numero minimo del array es: " . max($array) . "\n";
+    echo "El numero Maximo del array es: " . max($array) . "\n";
 
 };
 
