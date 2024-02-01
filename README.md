@@ -202,3 +202,25 @@ c. maximoArrayInt: Devuelve el máximo del array que se pasa como parámetro.
 	d. Decrementar b: resta 1 a la variable b
 
 	e. Borrar sesión: destruye la sesión
+
+# ** # PRACTICA_CLASE --- Hecha **
+
+Práctica Formularios y sesiones.
+Escriba un programa que valide (en PHP) un nombre, un número de teléfono y una
+dirección de correo y que conste de una única página.
+    ● La página solicita los datos y los valida:
+     El nombre sólo tenga letras.
+    ○ El número sean 9 números y comience por 6 o 7.
+    ○ La dirección de correo sea una dirección de correo válida.
+    ● Si los datos no son válidos, se solicitan de nuevo indicando los datos no válidos.
+    ● Si los datos son válidos, los datos se muestran.
+Las validaciones se harán en PHP, no se tendrán en cuenta aquellas validaciones hechas
+en HTML.
+
+
+
+# ** # PRACTICA_CLASE --- Hecha **
+
+Crear una BD de usuarios para continuar con el ejercicio de login pero esta vez accediendo a la BD.
+Para ello accede a phpMyAdmin y crea una nueva BD llamada usuarios.
+En esta nueva BD crea una tabla que se llame también usuarios con la siguiente estructura:
