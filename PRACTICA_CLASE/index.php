@@ -45,6 +45,9 @@ if(isset($_POST["nombre"]) && $_POST["numero"] && $_POST["correo"] ){
 
         
             echo "<br>Los datos del usuario son correctos";
+            echo"<br>". $nombre;
+            echo"<br>". $correo;
+            echo"<br>". $numero;
         }else{
             echo "<br>Los datos del usuario son validos, pero no se encuentran en la base de datos";
         }
