@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <form action="<?php echo htmlentities($_SERVER['REQUEST_URI']); ?>" method="POST">
+    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="POST">
         <label for="usuario">Usuario </label>
         <input type="string" name="usuario" required>
         <label for="password">contraseña: </label>
@@ -27,32 +27,36 @@
 
 
                 $conn = mysqli_connect("db", "root", "test", "usuarios");
+
                 if ($conn->connect_error) {
                     die("" . mysqli_connect_error());
                 }
 
 
-            }
+            
 
             $statament = $conn->stmt_init();
             $statament->prepare('Select * from usuarios where usuario = ? limit 1');
-            $statament->bind_param('s', $usuario);
+            $statament->bind_param('s', $user);
             $statament->execute();
             $resultado = $statament->get_result();
 
             if ($resultado->num_rows > 0) {
+                    echo "Hay problemas";
 
             } else {
-                $insertStatament = $conn->prepare('INSERT INTO usuarios(usuario , password) values (?, ?)');
-                $insertStatament->bind_param('ss', $usuario, $password);
+                echo $user;
+                echo $password;
+                echo $password2;
+                $insertStatament = $conn->prepare('INSERT INTO usuarios(usuario,password) values (?, ?)');
+                $insertStatament->bind_param('ss', $user, $password);
                 $insertStatament->execute();
                 $insertStatament->close();
             }
 
 
         }
-
-
+    }
 
 
         ?>

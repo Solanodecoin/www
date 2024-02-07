@@ -12,10 +12,17 @@ dirección de correo y que conste de una única página.
 Las validaciones se harán en PHP, no se tendrán en cuenta aquellas validaciones hechas
 en HTML.
 */
+
+$numero_validar = false;
+$nombre_validar = false;
+$correo_validar = false;
+
 if(isset($_POST["nombre"]) && $_POST["numero"] && $_POST["correo"] ){
     $nombre = $_POST["nombre"];
     $numero = $_POST["numero"];
     $correo = $_POST["correo"];
+    
+    
 
 
     if (ctype_alpha($nombre) ){
@@ -74,17 +81,15 @@ if(isset($_POST["nombre"]) && $_POST["numero"] && $_POST["correo"] ){
 
 </head>
 <body>
+    
     <form action="<? echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" name="login">
 
     <input type="text" name="nombre" placeholder="nombre">
     <input type="text" name="numero" placeholder="numero">
     <input type="text" name="correo" placeholder="correo">
     <input type="submit" value="Aceptar">
+
     </form>
-
-   <p>
-
-   </p>
     
 </body>
 </html>
