@@ -1,22 +1,27 @@
+<?php session_start(); 
+
+if(isset($_SESSION['usuario'])){ ?>
 <!DOCTYPE html>
 <html lang="en">
+  <a href="cerrarsesion.php">Cerrar sesion</a>
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestclient</title>
+  
   
 </head>
 
-<body>
+  <?php
+      
 
-  <div style="background-color: lightblue;">
-    <div >
-      <h1 >GESTCLIENT</h1>
-      <h2>Gestión de clientes de CertiBank</h2>
-      <?php
-       
+       echo "<body>
+
+       <div style='background-color: lightblue;'>
+         <div >
+           <h1 >GESTCLIENT</h1>
+           <h2>Gestión de clientes de CertiBank</h2>";
        $conn = mysqli_connect("db", "root", "test", "banco");
      
 
@@ -24,17 +29,17 @@
       
 
 
-
       // Dar de baja un cliente
       if (isset($_GET['accion']) && $_GET['accion'] == 'borrar') {
       //hacer llamada a BD con la consulta oportuna
+      if (isset($_GET['dni'])){ 
+  
         $dni = $_GET['dni'];
-        
-
         $insertStatament = $conn->prepare('DELETE FROM cliente WHERE dni = ?');
         $insertStatament->bind_param('s', $dni);
         $insertStatament->execute();
         $insertStatament->close();
+      }
 
 
         echo "Has pulsado borrar";
@@ -43,24 +48,34 @@
       // Dar de alta un cliente
       if (isset($_GET['accion']) && $_GET['accion'] == 'crear') {
       //hacer llamada a BD con la consulta oportuna
+
+
+
         $dni = $_GET['dni'];
         $telefono = $_GET['telefono'];
         $direccion = $_GET['direccion'];
         $nombre = $_GET['nombre'];
+
+        $statament = $conn->stmt_init();
+        $statament->prepare('SELECT dni FROM cliente where dni = ?');
+        $statament-> bind_param('s', $dni);
+        $statament->execute();
+        $tabla_dni = $statament->get_result();
+
         
 
-        if($dni == $nuevo_dni){
-          echo "El DNI asignado al nuevo usuario no existe";
-        }
-        else{ 
-        $insertStatament = $conn->prepare('INSERT INTO cliente(dni,nombre,direccion,telefono) values (?, ?, ?, ?)');
-        $insertStatament->bind_param('ssss', $dni, $nombre, $direccion, $telefono);
-        $insertStatament->execute();
-        $insertStatament->close();
-        }
+        if ($tabla_dni-> num_rows > 0 ){
+         
+          echo "El DNI asignado al nuevo usuario ya existe";
 
-      }
-
+        }else{ 
+          $insertStatament = $conn->prepare('INSERT INTO cliente(dni,nombre,direccion,telefono) values (?, ?, ?, ?)');
+          $insertStatament->bind_param('ssss', $dni, $nombre, $direccion, $telefono);
+          $insertStatament->execute();
+          $insertStatament->close();
+          }
+       }
+        
       // Modificar un cliente
       if (isset($_GET['accion']) && $_GET['accion'] == 'modificar') {
        //hacer llamada a BD con la consulta oportuna
@@ -68,6 +83,7 @@
         $telefono = $_GET['telefono'];
         $direccion = $_GET['direccion'];
         $nombre = $_GET['nombre'];
+        $dni2 = $dni;
        
 
         $insertStatament = $conn->prepare('UPDATE cliente  SET dni = ?, nombre = ?, direccion = ?, telefono = ? WHERE dni = ?');
@@ -76,11 +92,13 @@
         $insertStatament->close();
 
       }
-
+    
       // Listado
       //Este listado se muestra siempre
       //hacer llamada a BD con la consulta del listado de clientes
       $consulta;
+    
+  
       ?>
 
       <table >
@@ -146,3 +164,7 @@
 </body>
 
 </html>
+
+<?php }else{
+        print 'No has iniciado sesion';
+        }?>
