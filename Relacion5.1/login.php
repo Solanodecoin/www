@@ -18,10 +18,10 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 
     $password = $_POST['password'];
     $usuario =  $_POST['usuario'];
-    $conn = mysqli_connect("db", "root", "test", "banco");
+    $conn = mysqli_connect("db", "root", "test", "usuarios");
 
     $statament = $conn -> stmt_init();
-    $statament -> prepare('SELECT dni, nombre FROM cliente WHERE nombre = ? and dni = ?');
+    $statament -> prepare('SELECT usuario, password FROM usuarios WHERE usuario = ? and password = ?');
     $statament -> bind_param('ss', $usuario, $password  );
     $statament -> execute();
     $resultado = $statament -> get_result();
